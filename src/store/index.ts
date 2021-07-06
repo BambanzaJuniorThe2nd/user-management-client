@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { AppState } from "../types";
+import actions from "./actions";
 import mutations from "./mutations";
 
 Vue.use(Vuex);
@@ -14,6 +15,6 @@ const state: AppState = {
 export default new Vuex.Store({
   state,
   mutations,
-  actions: {},
+  actions,
   modules: {},
 });

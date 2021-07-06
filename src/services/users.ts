@@ -5,12 +5,15 @@ import {
   UserCreateArgs,
   UserLoginArgs,
   UserPutArgs,
+  CreateUserResult,
+  GetCurrentUserResult,
+  GetAllUsersResult,
 } from "../types";
 import { Auth } from "@/services";
 
 export const Users = {
   async createUser(args: UserCreateArgs) {
-    const res = await axios.post<User>("/users", args);
+    const res = await axios.post<CreateUserResult>("/users", args);
     return res.data;
   },
   async login(args: UserLoginArgs) {
@@ -19,11 +22,11 @@ export const Users = {
     return res.data.user;
   },
   async getAllUsers() {
-    const res = await axios.get<User>("/users/all");
-    return res.data;
+    const res = await axios.get<GetAllUsersResult>("/users/all");
+    return res.data.users;
   },
   async getCurrentUser() {
-    const res = await axios.get<User>("/users/me");
+    const res = await axios.get<GetCurrentUserResult>("/users/me");
     return res.data;
   },
   async getUser(userId: string) {

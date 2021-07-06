@@ -8,9 +8,23 @@ export interface User {
   updatedAt: Date;
 }
 
+export interface GetUserResult {
+  user: User
+}
+
+export interface CreateUserResult extends GetUserResult {}
+
+export interface GetCurrentUserResult extends GetUserResult {}
+
+export interface UpdateUserResult extends GetUserResult {}
+
 export interface LoginResult {
   user: User;
   token: string;
+}
+
+export interface GetAllUsersResult {
+  users: User[];
 }
 
 export interface UserCreateArgs {
@@ -42,7 +56,7 @@ export interface AppState {
 export enum MutationType {
   ADD_USER = "addUser",
   SET_USER = "setUser",
-  SET_USERS = "setUser",
+  SET_USERS = "setUsers",
   UNSET_MESSAGE = "unsetMessage",
   UNSET_USER = "unsetUser",
   UNSET_USERS = "unsetUsers",

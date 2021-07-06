@@ -11,6 +11,12 @@ const mutations: MutationTree<AppState> = {
   unsetUser(state) {
     state.user = undefined;
   },
+  setUsers(state, users) {
+    state.users = users;
+  },
+  unsetUsers(state) {
+    state.users = [];
+  },
   setMessage(state, message) {
     state.message = message;
   },
