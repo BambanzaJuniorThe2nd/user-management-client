@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
+import Add from "../views/Add.vue";
 
 Vue.use(VueRouter);
 
@@ -10,6 +11,11 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: Home,
   },
+  {
+    path: "/add",
+    name: "add",
+    component: Add,
+  }
   // {
   //   path: "/about",
   //   name: "About",
@@ -30,11 +36,7 @@ const routes: Array<RouteConfig> = [
   //   name: "tutorial-details",
   //   component: () => import("./components/Tutorial")
   // },
-  // {
-  //   path: "/add",
-  //   name: "add",
-  //   component: () => import("./components/AddTutorial")
-  // }
+
 ];
 
 const router = new VueRouter({

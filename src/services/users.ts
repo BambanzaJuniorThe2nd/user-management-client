@@ -1,13 +1,14 @@
 import axios from "axios";
 import {
   LoginResult,
-  User,
   UserCreateArgs,
   UserLoginArgs,
   UserPutArgs,
   CreateUserResult,
   GetCurrentUserResult,
   GetAllUsersResult,
+  GetUserResult,
+  UpdateUserResult,
 } from "../types";
 import { Auth } from "@/services";
 
@@ -27,15 +28,15 @@ export const Users = {
   },
   async getCurrentUser() {
     const res = await axios.get<GetCurrentUserResult>("/users/me");
-    return res.data;
+    return res.data.user;
   },
   async getUser(userId: string) {
-    const res = await axios.get<User>(`/users/${userId}`);
-    return res.data;
+    const res = await axios.get<GetUserResult>(`/users/${userId}`);
+    return res.data.user;
   },
   async updateUser(userId: string, args: UserPutArgs) {
-    const res = await axios.put<User>(`/users/${userId}`, args);
-    return res.data;
+    const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);
+    return res.data.user;
   },
   async logout() {
     Auth.deleteAccessToken();

@@ -15,9 +15,8 @@
         <v-card-title>Users</v-card-title>
 
         <v-data-table
-          v-if="!users.length"
           :headers="headers"
-          :items="users"
+          :items="usersDataFormatted"
           disable-pagination
           :hide-default-footer="true"
         >
@@ -38,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 export default {
   name: "users-list",
   data() {
@@ -57,7 +56,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(['users'])
+    ...mapState(['users']),
+    ...mapGetters(['usersDataFormatted']),
   },
   methods: {
     ...mapActions(['getAllUsers', 'refreshData']),

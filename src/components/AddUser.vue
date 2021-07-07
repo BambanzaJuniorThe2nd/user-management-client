@@ -5,16 +5,30 @@
     <div v-if="!submitted">
       <v-form ref="form" lazy-validation>
         <v-text-field
-          v-model="tutorial.title"
+          v-model="user.name"
+          :rules="[(v) => !!v || 'Name is required']"
+          label="Name"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          v-model="user.email"
+          :rules="[(v) => !!v || 'Email is required']"
+          label="Email"
+          required
+        ></v-text-field>
+
+        <v-text-field
+          v-model="user.title"
           :rules="[(v) => !!v || 'Title is required']"
           label="Title"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="tutorial.description"
-          :rules="[(v) => !!v || 'Description is required']"
-          label="Description"
+          v-model="user.birthdate"
+          :rules="[(v) => !!v || 'Birthdate is required']"
+          label="Birthdate"
           required
         ></v-text-field>
       </v-form>
@@ -29,11 +43,11 @@
         </v-card-title>
 
         <v-card-subtitle>
-          Click the button to add new Tutorial.
+          Click the button to add new User.
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn color="success" @click="newTutorial">Add</v-btn>
+          <v-btn color="success" @click="newUser">Add</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -43,42 +57,43 @@
 <script>
 
 export default {
-  name: "add-tutorial",
+  name: "add-user",
   data() {
     return {
-      tutorial: {
+      user: {
         id: null,
+        name: "",
+        email: "",
         title: "",
-        description: "",
-        published: false,
+        birthdate: "",
       },
       submitted: false,
     };
   },
   methods: {
     saveTutorial() {
-      var data = {
-        title: this.tutorial.title,
-        description: this.tutorial.description,
-      };
+    //   var data = {
+    //     title: this.tutorial.title,
+    //     description: this.tutorial.description,
+    //   };
 
-      TutorialDataService.create(data)
-        .then((response) => {
-          this.tutorial.id = response.data.id;
-          console.log(response.data);
-          this.submitted = true;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+    //   TutorialDataService.create(data)
+    //     .then((response) => {
+    //       this.tutorial.id = response.data.id;
+    //       console.log(response.data);
+    //       this.submitted = true;
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
     },
 
     newTutorial() {
-      this.submitted = false;
-      this.tutorial = {};
+    //   this.submitted = false;
+    //   this.tutorial = {};
     },
   },
-  
+
 };
 </script>
 
