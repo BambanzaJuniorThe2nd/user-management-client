@@ -5,9 +5,7 @@
     </v-col>
 
     <v-col cols="12" md="4">
-      <v-btn small @click="searchTitle">
-        Search
-      </v-btn>
+      <v-btn small @click="searchTitle"> Search </v-btn>
     </v-col>
 
     <v-col cols="12" sm="12">
@@ -21,7 +19,9 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editUser(item._id)">mdi-pencil</v-icon>
+            <v-icon small class="mr-2" @click="editUser(item._id)"
+              >mdi-pencil</v-icon
+            >
             <v-icon small @click="deleteUser(item._id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from "vuex";
 export default {
   name: "users-list",
   data() {
@@ -51,62 +51,62 @@ export default {
         { text: "Birthdate", value: "birthdate", sortable: true },
         { text: "Created At", value: "createdAt", sortable: true },
         { text: "Updated At", value: "updatedAt", sortable: true },
-        { text: "Actions", value: "actions", sortable: false }
+        { text: "Actions", value: "actions", sortable: false },
       ],
     };
   },
   computed: {
-    ...mapState(['users']),
-    ...mapGetters(['usersDataFormatted']),
+    ...mapState(["users"]),
+    ...mapGetters(["usersDataFormatted"]),
   },
   methods: {
-    ...mapActions(['getAllUsers', 'refreshData']),
+    ...mapActions(["getAllUsers", "refreshData"]),
     retrieveUsers() {
-    //   TutorialDataService.getAll()
-    //     .then((response) => {
-    //       this.tutorials = response.data.map(this.getDisplayTutorial);
-    //       console.log(response.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
+      //   TutorialDataService.getAll()
+      //     .then((response) => {
+      //       this.tutorials = response.data.map(this.getDisplayTutorial);
+      //       console.log(response.data);
+      //     })
+      //     .catch((e) => {
+      //       console.log(e);
+      //     });
     },
 
     async refreshList() {
-        await this.getAllUsers();
+      await this.getAllUsers();
     },
 
     removeAllUsers() {
-        console.log("removeAllUsers clicked with ");
-    //   TutorialDataService.deleteAll()
-    //     .then((response) => {
-    //       console.log(response.data);
-    //       this.refreshList();
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
+      console.log("removeAllUsers clicked with ");
+      //   TutorialDataService.deleteAll()
+      //     .then((response) => {
+      //       console.log(response.data);
+      //       this.refreshList();
+      //     })
+      //     .catch((e) => {
+      //       console.log(e);
+      //     });
     },
 
     searchTitle() {
-    //   TutorialDataService.findByTitle(this.title)
-    //     .then((response) => {
-    //       this.tutorials = response.data.map(this.getDisplayTutorial);
-    //       console.log(response.data);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
+      //   TutorialDataService.findByTitle(this.title)
+      //     .then((response) => {
+      //       this.tutorials = response.data.map(this.getDisplayTutorial);
+      //       console.log(response.data);
+      //     })
+      //     .catch((e) => {
+      //       console.log(e);
+      //     });
     },
 
     editUser(id) {
-        console.log("editUser clicked with ", id);
-    //   this.$router.push({ name: "tutorial-details", params: { id: id } });
+      console.log("editUser clicked with ", id);
+      //   this.$router.push({ name: "tutorial-details", params: { id: id } });
     },
 
     deleteUser(id) {
-        console.log("deleteUser clicked with ", id);
-        this.$router.push({ name: "tutorial-details", params: { id: id } });
+      console.log("deleteUser clicked with ", id);
+      this.$router.push({ name: "tutorial-details", params: { id: id } });
     },
   },
   async mounted() {

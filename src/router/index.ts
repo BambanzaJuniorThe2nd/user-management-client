@@ -15,7 +15,7 @@ const routes: Array<RouteConfig> = [
     path: "/add",
     name: "add",
     component: Add,
-  }
+  },
   // {
   //   path: "/about",
   //   name: "About",
@@ -36,7 +36,6 @@ const routes: Array<RouteConfig> = [
   //   name: "tutorial-details",
   //   component: () => import("./components/Tutorial")
   // },
-
 ];
 
 const router = new VueRouter({

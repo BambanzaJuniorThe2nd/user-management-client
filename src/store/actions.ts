@@ -8,9 +8,14 @@ import {
 } from "../router/defaults";
 
 const actions = wrapActions({
-  async getAllUsers({ commit }) {
-    const users = await Users.getAllUsers();
-    commit(MutationType.SET_USERS, users);
+  async setMessage(
+    { commit },
+    { type, message }: { type: string; message: string }
+  ) {
+    commit("setMessage", {
+      type,
+      message,
+    });
   },
   async updateOtherUser(
     { commit, state },

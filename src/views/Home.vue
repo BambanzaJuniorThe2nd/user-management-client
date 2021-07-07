@@ -8,9 +8,8 @@ import UserList from "../components/UserList.vue";
 
 export default Vue.extend({
   name: "Home",
-
   components: {
-    UserList
+    UserList,
   },
 });
 </script>

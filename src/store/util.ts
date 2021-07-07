@@ -3,7 +3,6 @@ import { Auth } from "../services";
 import router from "../router";
 import { DEFAULT_SIGNED_OUT_PAGE } from "../router/defaults";
 import { AppState } from "../types";
-import Vue from "vue";
 
 function setErrorMessage(e: any, commit: any) {
   const message =

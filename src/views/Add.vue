@@ -10,7 +10,7 @@ export default Vue.extend({
   name: "Add",
 
   components: {
-    AddUser
+    AddUser,
   },
 });
 </script>

@@ -9,7 +9,7 @@ export interface User {
 }
 
 export interface GetUserResult {
-  user: User
+  user: User;
 }
 
 export interface CreateUserResult extends GetUserResult {}
@@ -57,6 +57,7 @@ export enum MutationType {
   ADD_USER = "addUser",
   SET_USER = "setUser",
   SET_USERS = "setUsers",
+  SET_MESSAGE = "setMessage",
   UNSET_MESSAGE = "unsetMessage",
   UNSET_USER = "unsetUser",
   UNSET_USERS = "unsetUsers",
