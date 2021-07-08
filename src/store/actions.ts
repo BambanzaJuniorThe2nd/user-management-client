@@ -18,19 +18,17 @@ const actions = wrapActions({
     });
   },
   async updateOtherUser(
-    { commit, state },
+    { commit },
     {
       _id,
       name,
       email,
-      password,
       title,
       birthdate,
     }: {
       _id: string;
       name: string;
       email: string;
-      password: string;
       title: string;
       birthdate: Date;
     }
@@ -38,7 +36,6 @@ const actions = wrapActions({
     const updatedUser = await Users.updateUser(_id, {
       name,
       email,
-      password,
       title,
       birthdate,
     });
@@ -51,13 +48,11 @@ const actions = wrapActions({
     {
       name,
       email,
-      password,
       title,
       birthdate,
     }: {
       name: string;
       email: string;
-      password: string;
       title: string;
       birthdate: Date;
     }
@@ -65,16 +60,10 @@ const actions = wrapActions({
     const user = await Users.createUser({
       name,
       email,
-      password,
       title,
       birthdate,
     });
-    await Users.login({ email, password });
-    commit(MutationType.SET_USER, user);
-
-    if (user) {
-      router.push({ name: DEFAULT_SIGNED_IN_PAGE });
-    }
+    commit(MutationType.ADD_USER, user);
   },
   async signUserIn(
     { commit },
@@ -91,6 +80,10 @@ const actions = wrapActions({
     await Users.logout();
     dispatch("clearData");
     router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
+  },
+  async getAllUsers({ commit }) {
+    const users = await Users.getAllUsers();
+    commit(MutationType.SET_USERS, users);
   },
   async getCurrentUser({ commit }) {
     const user = await Users.getCurrentUser();

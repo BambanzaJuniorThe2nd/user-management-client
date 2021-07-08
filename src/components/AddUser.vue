@@ -68,14 +68,15 @@
         </v-col>
       </v-form>
 
-      <!-- <v-btn color="primary" class="mt-3" @click="saveUser">Submit</v-btn> -->
-      <v-btn color="primary" class="mr-4" @click="addUser"> Add </v-btn>
+      <v-btn color="primary" class="mr-4" @click="addUser">Add</v-btn>
+      <v-btn @click="reset">Clear</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions } from "vuex";
+import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 
 export default {
   name: "add-user",
@@ -113,7 +114,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setMessage"]),
+    ...mapActions(["setMessage", "createUser"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -125,13 +126,21 @@ export default {
     },
     async addUser() {
       if (this.isValidForm()) {
-        console.log("Form is valid...");
-        console.log("date: ", this.user.birthdate);
-      } else {
-        console.log("Form not valid...");
+        await this.createUser({
+          name: this.user.name,
+          email: this.user.email,
+          title: this.user.title,
+          birthdate: this.user.birthdate
+        });
       }
     },
   },
+  watch: {
+    users() {
+      // Reset form
+      this.reset();
+    }
+  }
 };
 </script>
 
