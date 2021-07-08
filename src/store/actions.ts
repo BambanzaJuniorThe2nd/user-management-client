@@ -18,6 +18,7 @@ const actions = wrapActions({
     });
   },
   async getOtherUser({commit}, userId: string) {
+    console.log("Inside getOtherUser: ", userId);
     const otherUser = await Users.getUser(userId);
     if (otherUser) {
       commit(MutationType.SET_OTHER_USER, otherUser);

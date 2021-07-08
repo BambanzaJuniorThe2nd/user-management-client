@@ -5,7 +5,7 @@
     </v-col>
 
     <v-col cols="12" md="4">
-      <v-btn small @click="searchTitle"> Search </v-btn>
+      <v-btn small> Search </v-btn>
     </v-col>
 
     <v-col cols="12" sm="12">
@@ -61,16 +61,6 @@ export default {
   },
   methods: {
     ...mapActions(["getAllUsers", "refreshData"]),
-    retrieveUsers() {
-      //   TutorialDataService.getAll()
-      //     .then((response) => {
-      //       this.tutorials = response.data.map(this.getDisplayTutorial);
-      //       console.log(response.data);
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //     });
-    },
 
     async refreshList() {
       await this.getAllUsers();
@@ -78,35 +68,16 @@ export default {
 
     removeAllUsers() {
       console.log("removeAllUsers clicked with ");
-      //   TutorialDataService.deleteAll()
-      //     .then((response) => {
-      //       console.log(response.data);
-      //       this.refreshList();
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //     });
-    },
-
-    searchTitle() {
-      //   TutorialDataService.findByTitle(this.title)
-      //     .then((response) => {
-      //       this.tutorials = response.data.map(this.getDisplayTutorial);
-      //       console.log(response.data);
-      //     })
-      //     .catch((e) => {
-      //       console.log(e);
-      //     });
     },
 
     editUser(id) {
       console.log("editUser clicked with ", id);
-      //   this.$router.push({ name: "tutorial-details", params: { id: id } });
+      this.$router.push({ name: "edit", params: { id } });
     },
 
     deleteUser(id) {
       console.log("deleteUser clicked with ", id);
-      this.$router.push({ name: "tutorial-details", params: { id: id } });
+      this.$router.push({ name: "delete", params: { id } });
     },
   },
   async mounted() {

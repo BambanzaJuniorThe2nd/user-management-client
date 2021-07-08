@@ -1,22 +1,16 @@
 import { GetterTree } from "vuex";
 import { AppState } from "../types";
-import moment from "moment";
+import { formatDateFieldsInUserObject } from "../views/util";
 
 const getters: GetterTree<AppState, AppState> = {
   usersDataFormatted: ({ users }) => {
-    return users.map((user) => {
-      return {
-        ...user,
-        birthdate: moment(user.birthdate).format("ddd MMM DD, YYYY"),
-        createdAt: moment(user.createdAt).format(
-          "ddd MMM DD, YYYY [at] HH:mm a"
-        ),
-        updatedAt: moment(user.updatedAt).format(
-          "ddd MMM DD, YYYY [at] HH:mm a"
-        ),
-      };
-    });
+    return users.map((user) => formatDateFieldsInUserObject(user));
   },
+  userDataFormatted: ({ otherUser }) => {
+    if (otherUser) {
+      return formatDateFieldsInUserObject(otherUser);
+    }
+  }
 };
 
 export default getters;

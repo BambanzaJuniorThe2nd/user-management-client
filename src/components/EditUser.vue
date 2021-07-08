@@ -69,14 +69,14 @@
         </v-col>
       </v-form>
 
-      <v-btn color="primary" class="mr-4" @click="addUser">Add</v-btn>
+      <v-btn color="primary" class="mr-4" @click="updateUser">Save</v-btn>
       <v-btn @click="reset">Clear</v-btn>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapGetters, mapState } from "vuex";
 import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 
 export default {
@@ -111,13 +111,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(['users']),
+    ...mapState(['users', 'otherUser']),
+    ...mapGetters(['userDataFormatted']),
     isValid() {
       return this.$refs.form.validate();
     },
   },
   methods: {
-    ...mapActions(["setMessage", "createUser"]),
+    ...mapActions(["getOtherUser", "updateOtherUser"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -127,21 +128,25 @@ export default {
     resetValidation() {
       this.$refs.form.resetValidation();
     },
-    async addUser() {
+    async updateUser() {
       if (this.isValidForm()) {
-        await this.createUser({
-          name: this.user.name,
-          email: this.user.email,
-          title: this.user.title,
-          birthdate: new Date(this.user.birthdate)
-        });
+        // await this.updateOtherUser({
+        //   name: this.user.name,
+        //   email: this.user.email,
+        //   title: this.user.title,
+        //   birthdate: new Date(this.otherUser.birthdate)
+        // });
       }
     },
   },
   async mounted() {
-    await this.getCurrentInvitation(this.$route.params.id);
+    await this.getOtherUser(this.$route.params.id);
   },
   watch: {
+    otherUser() {
+        console.log("Inside otherUser watcher...");
+        this.user = this.userDataFormatted(this.otherUser);
+    },
     users() {
       // Reset form
       this.reset();

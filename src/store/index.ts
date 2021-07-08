@@ -9,6 +9,7 @@ Vue.use(Vuex);
 
 const state: AppState = {
   user: undefined,
+  otherUser: undefined,
   users: [],
   message: { type: "", message: "" },
 };
