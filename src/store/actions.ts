@@ -51,6 +51,11 @@ const actions = wrapActions({
       dispatch("getAllUsers")
     }
   },
+  async deleteOtherUser({ commit, dispatch }, userId: string) {
+    await Users.deleteUser(userId);
+    commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully deleted" });
+    dispatch("getAllUsers")
+  },
   async createUser(
     { commit, dispatch },
     {

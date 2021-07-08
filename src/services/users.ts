@@ -38,6 +38,10 @@ export const Users = {
     const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);
     return res.data.user;
   },
+  async deleteUser(userId: string) {
+    await axios.delete(`/users/${userId}`);
+    return;
+  },
   async logout() {
     Auth.deleteAccessToken();
     return;
