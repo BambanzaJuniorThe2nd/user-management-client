@@ -3,7 +3,7 @@
     <v-app-bar app dark>
       <div class="d-flex align-center mr-2">User Management System</div>
 
-      <v-btn to="/tutorials" text> Users </v-btn>
+      <v-btn to="/" text> Users </v-btn>
 
       <v-btn to="/add" text> Add </v-btn>
     </v-app-bar>

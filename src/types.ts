@@ -48,6 +48,7 @@ export interface AppMessage {
 
 export interface AppState {
   user?: User;
+  otherUser?: User;
   users: User[];
   message: AppMessage;
 }
@@ -55,9 +56,11 @@ export interface AppState {
 export enum MutationType {
   ADD_USER = "addUser",
   SET_USER = "setUser",
+  UNSET_USER = "unsetUser",
+  SET_OTHER_USER = "setOtherUser",
+  UNSET_OTHER_USER = "unsetOtherUser",
   SET_USERS = "setUsers",
+  UNSET_USERS = "unsetUsers",
   SET_MESSAGE = "setMessage",
   UNSET_MESSAGE = "unsetMessage",
-  UNSET_USER = "unsetUser",
-  UNSET_USERS = "unsetUsers",
 }

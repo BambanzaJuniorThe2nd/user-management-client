@@ -17,6 +17,12 @@ const actions = wrapActions({
       message,
     });
   },
+  async getOtherUser({commit}, userId: string) {
+    const otherUser = await Users.getUser(userId);
+    if (otherUser) {
+      commit(MutationType.SET_OTHER_USER, otherUser);
+    }
+  },
   async updateOtherUser(
     { commit },
     {
@@ -102,6 +108,7 @@ const actions = wrapActions({
   async clearData({ commit }) {
     [
       MutationType.UNSET_USER,
+      MutationType.UNSET_OTHER_USER,
       MutationType.UNSET_USERS,
       MutationType.UNSET_MESSAGE,
     ].forEach((mutation) => commit(mutation));
