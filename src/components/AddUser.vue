@@ -77,6 +77,7 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import { Auth } from '../services';
 import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 
 export default {
@@ -117,7 +118,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setMessage", "createUser"]),
+    ...mapActions(["setMessage", "createUser", "getCurrentUser"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -137,6 +138,15 @@ export default {
         });
       }
     },
+  },
+  async mounted() {
+    if (Auth.isAuthenticated()) {
+      if (!this.user)
+        await this.getCurrentUser();
+    }
+    else {
+      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
+    }
   },
   watch: {
     users() {

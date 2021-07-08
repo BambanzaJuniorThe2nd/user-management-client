@@ -18,7 +18,6 @@ const actions = wrapActions({
     });
   },
   async getOtherUser({commit}, userId: string) {
-    console.log("Inside getOtherUser: ", userId);
     const otherUser = await Users.getUser(userId);
     if (otherUser) {
       commit(MutationType.SET_OTHER_USER, otherUser);
@@ -81,7 +80,7 @@ const actions = wrapActions({
       commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully added" });
     }
   },
-  async signUserIn(
+  async logUserIn(
     { commit },
     { email, password }: { email: string; password: string }
   ) {
@@ -92,7 +91,7 @@ const actions = wrapActions({
         router.push({ name: DEFAULT_SIGNED_IN_PAGE });
     }
   },
-  async signUserOut({ dispatch }) {
+  async logUserOut({ dispatch }) {
     await Users.logout();
     dispatch("clearData");
     router.push({ name: DEFAULT_SIGNED_OUT_PAGE });

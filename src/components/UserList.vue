@@ -38,6 +38,8 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
+import { Auth } from '../services';
+import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 export default {
   name: "users-list",
   data() {
@@ -60,7 +62,7 @@ export default {
     ...mapGetters(["usersDataFormatted"]),
   },
   methods: {
-    ...mapActions(["getAllUsers", "refreshData"]),
+    ...mapActions(["getAllUsers", "refreshData", "getCurrentUser"]),
 
     async refreshList() {
       await this.getAllUsers();
@@ -71,17 +73,23 @@ export default {
     },
 
     editUser(id) {
-      console.log("editUser clicked with ", id);
       this.$router.push({ name: "edit", params: { id } });
     },
 
     deleteUser(id) {
-      console.log("deleteUser clicked with ", id);
       this.$router.push({ name: "delete", params: { id } });
     },
   },
   async mounted() {
-    await this.refreshData();
+    if (Auth.isAuthenticated()) {
+      console.log("Is authenticated...");
+      if (!this.user)
+        await this.getCurrentUser();
+      await this.refreshData();
+    }
+    else {
+      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
+    }
   },
 };
 </script>

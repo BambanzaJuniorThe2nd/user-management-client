@@ -77,8 +77,8 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
+import { Auth } from '../services';
 import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
-
 export default {
   name: "edit-user",
   data() {
@@ -118,7 +118,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getOtherUser", "updateOtherUser"]),
+    ...mapActions(["getOtherUser", "updateOtherUser", "getCurrentUser"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -141,7 +141,17 @@ export default {
     },
   },
   async mounted() {
-    await this.getOtherUser(this.$route.params.id);
+    if (Auth.isAuthenticated()) {
+      console.log("Is authenticated...");
+      if (!this.user)
+        await this.getCurrentUser();
+      await this.refreshData();
+      await this.getOtherUser(this.$route.params.id);
+    }
+    else {
+        console.log("Not authenticated...");
+      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
+    }
   },
   watch: {
     otherUser() {

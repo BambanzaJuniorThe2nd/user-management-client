@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Add from "../views/Add.vue";
 import Edit from "../views/Edit.vue";
 import Delete from "../views/Delete.vue";
+import Login from "../views/Login.vue";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,11 @@ const routes: Array<RouteConfig> = [
     path: "/users/delete/:id",
     name: "delete",
     component: Delete,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: Login,
   },
 ];
 

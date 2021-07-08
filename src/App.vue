@@ -5,7 +5,8 @@
 
       <v-btn to="/" text> Users </v-btn>
 
-      <v-btn to="/add" text> Add </v-btn>
+      <v-btn to="/users/add" text> Add </v-btn>
+      <v-btn text @click="logout"> Logout </v-btn>
     </v-app-bar>
 
     <v-main>
@@ -37,7 +38,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default Vue.extend({
   name: "App",
@@ -49,6 +50,12 @@ export default Vue.extend({
   }),
   computed: {
     ...mapState(["message"]),
+  },
+  methods: {
+    ...mapActions(["logUserOut"]),
+    async logout() {
+      await this.logUserOut();
+    }
   },
   watch: {
     message() {

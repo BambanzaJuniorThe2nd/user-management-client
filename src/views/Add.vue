@@ -7,10 +7,10 @@ import Vue from "vue";
 import AddUser from "../components/AddUser.vue";
 
 export default Vue.extend({
-  name: "Add",
+  name: "add",
 
   components: {
     AddUser,
-  },
+  }
 });
 </script>

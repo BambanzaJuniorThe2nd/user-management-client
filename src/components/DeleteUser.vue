@@ -36,6 +36,7 @@
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
+import { Auth } from '../services';
 import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 import Dialog from "../ui-components/Dialog.vue"
 
@@ -68,7 +69,7 @@ export default {
     ...mapGetters(['userDataFormatted']),
   },
   methods: {
-    ...mapActions(["getOtherUser", "deleteOtherUser"]),
+    ...mapActions(["getOtherUser", "deleteOtherUser", "getCurrentUser"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -76,20 +77,26 @@ export default {
         this.user = { ...this.userDataFormatted }
     },
     hideDialog() {
-        console.log("Inside hideDialog");
         this.showDialog = false;
     },
     proceed() {
         this.showDialog = true;
     },
     async deleteUser() {
-        console.log("Inside hideDialog");
         this.hideDialog();
         await this.deleteOtherUser(this.$route.params.id);
     }
   },
   async mounted() {
-    await this.getOtherUser(this.$route.params.id);
+    if (Auth.isAuthenticated()) {
+      if (!this.user)
+        await this.getCurrentUser();
+      await this.refreshData();
+      await this.getOtherUser(this.$route.params.id);
+    }
+    else {
+      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
+    }
   },
   watch: {
     otherUser() {
