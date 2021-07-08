@@ -4,12 +4,12 @@ import moment from "moment";
 export const formatDateFieldsInUserObject = (user: User) => {
     return {
         ...user,
-        birthdate: moment(user.birthdate).format("ddd MMM DD, YYYY"),
+        birthdate: moment(user.birthdate).format("YYYY-MM-DD"),
         createdAt: moment(user.createdAt).format(
-          "ddd MMM DD, YYYY [at] HH:mm a"
+          "YYYY-MM-DD [at] HH:mm a"
         ),
         updatedAt: moment(user.updatedAt).format(
-          "ddd MMM DD, YYYY [at] HH:mm a"
+          "YYYY-MM-DD [at] HH:mm a"
         ),
     }
 }

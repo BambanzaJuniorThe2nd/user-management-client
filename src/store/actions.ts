@@ -25,7 +25,7 @@ const actions = wrapActions({
     }
   },
   async updateOtherUser(
-    { commit },
+    { commit, dispatch },
     {
       _id,
       name,
@@ -48,7 +48,7 @@ const actions = wrapActions({
     });
     if (updatedUser) {
       commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully updated" });
-      await Users.getAllUsers();
+      dispatch("getAllUsers")
     }
   },
   async createUser(

@@ -70,7 +70,7 @@
       </v-form>
 
       <v-btn color="primary" class="mr-4" @click="updateUser">Save</v-btn>
-      <v-btn @click="reset">Clear</v-btn>
+      <v-btn @click="reset">Reset</v-btn>
     </div>
   </div>
 </template>
@@ -123,19 +123,20 @@ export default {
       return this.$refs.form.validate();
     },
     reset() {
-      this.$refs.form.reset();
+        this.user = { ...this.userDataFormatted }
     },
     resetValidation() {
       this.$refs.form.resetValidation();
     },
     async updateUser() {
       if (this.isValidForm()) {
-        // await this.updateOtherUser({
-        //   name: this.user.name,
-        //   email: this.user.email,
-        //   title: this.user.title,
-        //   birthdate: new Date(this.otherUser.birthdate)
-        // });
+        await this.updateOtherUser({
+            _id: this.$route.params.id,
+            name: this.user.name,
+            email: this.user.email,
+            title: this.user.title,
+            birthdate: new Date(this.otherUser.birthdate)
+        });
       }
     },
   },
@@ -144,12 +145,10 @@ export default {
   },
   watch: {
     otherUser() {
-        console.log("Inside otherUser watcher...");
-        this.user = this.userDataFormatted(this.otherUser);
+        this.reset();
     },
     users() {
-      // Reset form
-      this.reset();
+        this.$router.push({ name: "home" });
     }
   }
 };
