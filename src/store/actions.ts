@@ -45,7 +45,7 @@ const actions = wrapActions({
     }
   },
   async createUser(
-    { commit },
+    { commit, dispatch },
     {
       name,
       email,
@@ -65,8 +65,8 @@ const actions = wrapActions({
       birthdate,
     });
     if (user) {
-      commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully added" });
       commit(MutationType.ADD_USER, user);
+      commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully added" });
     }
   },
   async signUserIn(

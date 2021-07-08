@@ -25,7 +25,7 @@
           required
         ></v-text-field>
 
-        <v-col cols="12" sm="12">
+        <v-col cols="12" sm="12" required>
           <v-dialog
             ref="dialog"
             v-model="modal"
@@ -41,6 +41,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
+                :rules="birthdateRules"
               ></v-text-field>
             </template>
             <v-date-picker
@@ -75,7 +76,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 
 export default {
@@ -106,9 +107,11 @@ export default {
         (v) => !!v || "Title is required",
         (v) => (v && v.length >= 1) || "Title must be at least 1 character",
       ],
+      birthdateRules: [(v) => !!v || "Birthdate is required"]
     };
   },
   computed: {
+    ...mapState(['users']),
     isValid() {
       return this.$refs.form.validate();
     },
