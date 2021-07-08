@@ -40,6 +40,7 @@ const actions = wrapActions({
       birthdate,
     });
     if (updatedUser) {
+      commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully updated" });
       await Users.getAllUsers();
     }
   },
@@ -63,7 +64,10 @@ const actions = wrapActions({
       title,
       birthdate,
     });
-    commit(MutationType.ADD_USER, user);
+    if (user) {
+      commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully added" });
+      commit(MutationType.ADD_USER, user);
+    }
   },
   async signUserIn(
     { commit },

@@ -130,7 +130,7 @@ export default {
           name: this.user.name,
           email: this.user.email,
           title: this.user.title,
-          birthdate: this.user.birthdate
+          birthdate: new Date(this.user.birthdate)
         });
       }
     },
