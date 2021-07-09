@@ -125,9 +125,6 @@ export default {
     reset() {
       this.$refs.form.reset();
     },
-    resetValidation() {
-      this.$refs.form.resetValidation();
-    },
     async addUser() {
       if (this.isValidForm()) {
         await this.createUser({
