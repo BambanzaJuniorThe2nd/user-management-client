@@ -27,6 +27,12 @@
           label="Birthdate"
           readonly
         ></v-text-field>
+
+        <v-text-field
+          v-model="user.isAdmin"
+          label="Role"
+          readonly
+        ></v-text-field>
       </v-form>
 
       <v-btn color="error" class="mr-4" @click="proceed">Proceed</v-btn>
@@ -48,7 +54,6 @@ export default {
   data() {
     return {
       user: {
-        id: null,
         name: "",
         email: "",
         title: "",
@@ -60,7 +65,7 @@ export default {
       valid: true,
       modal: false,
       showDialog: false,
-      dialogTitle: "Confirm user deletion",
+      dialogTitle: "Confirm deletion",
       dialogText: "Are you sure you want to delete this user?",
     };
   },
