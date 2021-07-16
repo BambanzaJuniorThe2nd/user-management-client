@@ -1,8 +1,8 @@
 <template>
-    <div class="submit-form mt-3 mx-auto">
-    <p class="headline">Login</p>
+    <div class="submit-form mx-auto mt-15" style="max-width: 300px">
+    <p class="headline text-center">Login</p>
 
-    <div>
+    <div class="mx-auto" style="max-width: 300px">
       <v-form ref="form" lazy-validation>
         <v-text-field
           v-model="creds.email"

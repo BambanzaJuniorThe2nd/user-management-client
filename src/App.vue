@@ -1,12 +1,16 @@
 <template>
   <v-app>
     <v-app-bar app dark>
-      <div class="d-flex align-center mr-2">User Management System</div>
+      <div class="d-flex justify-space-between" style="width: 100%">
+        <div class="d-flex align-center mr-2">User Management System</div>
 
-      <v-btn to="/" text> Users </v-btn>
+        <div v-if="user" class="d-flex justify-space-between" style="width: 15%">
+          <v-btn to="/" text> Users </v-btn>
+          <v-btn to="/users/add" text> Add </v-btn>
+        </div>
 
-      <v-btn to="/users/add" text> Add </v-btn>
-      <v-btn text @click="logout"> Logout </v-btn>
+        <v-btn v-if="user" text @click="logout"> Logout </v-btn>
+      </div>
     </v-app-bar>
 
     <v-main>
@@ -49,7 +53,7 @@ export default Vue.extend({
     timeout: 4000,
   }),
   computed: {
-    ...mapState(["message"]),
+    ...mapState(["message", "user"]),
   },
   methods: {
     ...mapActions(["logUserOut"]),
@@ -68,8 +72,11 @@ export default Vue.extend({
         default:
           this.snackbarBgColor = "green";
       }
-      this.showSnackbar = true;
-      this.snackbarText = this.message.message;
+
+      if (this.message.type.length) {
+        this.showSnackbar = true;
+        this.snackbarText = this.message.message;
+      }
     },
   },
 });

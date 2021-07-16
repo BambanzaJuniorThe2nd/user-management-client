@@ -127,7 +127,7 @@ const actions = wrapActions({
         router.push({ name: DEFAULT_SIGNED_IN_PAGE });
     }
   },
-  async logUserOut({ dispatch }) {
+  async logUserOut({ commit, dispatch }) {
     await Users.logout();
     dispatch("clearData");
     router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
