@@ -9,7 +9,6 @@
         <v-card-title>Users</v-card-title>
 
         <v-data-table
-          v-show="users && users.length"
           :headers="headers"
           :items="usersDataFormatted"
           disable-pagination
@@ -23,7 +22,7 @@
           </template>
         </v-data-table>
 
-        <v-card-actions v-if="users && users.length">
+        <v-card-actions v-if="users.length">
           <v-btn small color="error" @click="removeAllUsers">
             Remove All
           </v-btn>
