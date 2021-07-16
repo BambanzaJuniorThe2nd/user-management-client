@@ -78,7 +78,8 @@
       <div class="d-flex justify-space-between mb-5">
         <v-btn color="primary" @click="updateUser">Save</v-btn>
         <v-btn @click="reset">Reset</v-btn>
-        <v-btn v-show="(user && otherUser) && user._id === otherUser._id" color="yellow" @click="changePassword">Change Password</v-btn>
+        <v-btn v-if="(user && otherUser) && user._id === otherUser._id" color="yellow" @click="changePassword">Change Password</v-btn>
+        <v-btn v-else color="yellow" @click="resetPassword">Reset Password</v-btn>
       </div>
     </div>
   </div>
@@ -128,7 +129,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getOtherUser", "updateOtherUser", "getCurrentUser", "refreshData"]),
+    ...mapActions(["getOtherUser", "updateOtherUser", "getCurrentUser", "refreshData", "resetUserPassword"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -155,6 +156,10 @@ export default {
     },
     async changePassword() {
       this.$router.push({ name: "change" });
+    },
+    async resetPassword() {
+      await this.resetUserPassword(this.$route.params.id);
+      this.submitted = true;
     }
   },
   async mounted() {

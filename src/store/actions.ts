@@ -23,6 +23,11 @@ const actions = wrapActions({
       commit(MutationType.SET_OTHER_USER, otherUser);
     }
   },
+  async resetUserPassword({commit, dispatch}, userId:string) {
+    await Users.resetPassword(userId);
+    commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully reset" });
+    dispatch("getAllUsers");
+  },
   async updateCurrentUser(
     {commit, dispatch }, 
     { _id, name, email, title, birthdate, password, isAdmin 

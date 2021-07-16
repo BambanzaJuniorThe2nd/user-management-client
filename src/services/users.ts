@@ -35,6 +35,10 @@ export const Users = {
     const res = await axios.get<GetUserResult>(`/users/${userId}`);
     return res.data;
   },
+  async resetPassword(userId: string) {
+    const res = await axios.put(`/users/password/reset/${userId}`);
+    return res.data;
+  },
   async updateCurrentUser(userId: string, args: CurrentUserPutArgs) {
     const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);
     return res.data;
