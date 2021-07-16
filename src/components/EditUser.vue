@@ -1,8 +1,8 @@
 <template>
-  <div class="submit-form mt-3 mx-auto">
+  <div class="submit-form mt-10 mx-auto">
     <p class="headline">Edit User</p>
 
-    <div v-if="!submitted">
+    <div>
       <v-form ref="form" lazy-validation>
         <v-text-field
           v-model="user.name"
@@ -67,6 +67,12 @@
             </v-date-picker>
           </v-dialog>
         </v-col>
+        <v-select
+          :items="userRoles"
+          v-model="user.role"
+          label="Role"
+        >
+        </v-select>
       </v-form>
 
       <v-btn color="primary" class="mr-4" @click="updateUser">Save</v-btn>
@@ -91,7 +97,9 @@ export default {
         birthdate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10),
+        role: "Regular",
       },
+      userRoles: ["Admin", "Regular"],
       submitted: false,
       valid: true,
       modal: false,
@@ -123,10 +131,11 @@ export default {
       return this.$refs.form.validate();
     },
     reset() {
-        this.user = { ...this.userDataFormatted }
+        this.user = { ...this.userDataFormatted, role: this.userDataFormatted.isAdmin }
     },
     resetValidation() {
       this.$refs.form.resetValidation();
+      
     },
     async updateUser() {
       if (this.isValidForm()) {
@@ -135,21 +144,22 @@ export default {
             name: this.user.name,
             email: this.user.email,
             title: this.user.title,
-            birthdate: new Date(this.otherUser.birthdate)
+            birthdate: this.user.birthdate,
+            isAdmin: this.user.role === "Admin"
         });
+
+        this.submitted = true;
       }
     },
   },
   async mounted() {
     if (Auth.isAuthenticated()) {
-      console.log("Is authenticated...");
       if (!this.user)
         await this.getCurrentUser();
       await this.refreshData();
       await this.getOtherUser(this.$route.params.id);
     }
     else {
-        console.log("Not authenticated...");
       this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
     }
   },
@@ -158,7 +168,10 @@ export default {
         this.reset();
     },
     users() {
-        this.$router.push({ name: "home" });
+        if (this.submitted) {
+          this.$router.push({ name: "home" });
+          this.submitted = false;
+        } 
     }
   }
 };

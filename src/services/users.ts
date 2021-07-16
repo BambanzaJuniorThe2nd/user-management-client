@@ -35,6 +35,7 @@ export const Users = {
     return res.data;
   },
   async updateUser(userId: string, args: UserPutArgs) {
+    console.log("args in updateUser service: ", args);
     const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);
     return res.data;
   },

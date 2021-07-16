@@ -33,6 +33,7 @@ export interface UserCreateArgs {
   email: string;
   title: string;
   birthdate: string;
+  isAdmin: boolean;
 }
 
 export interface UserLoginArgs {

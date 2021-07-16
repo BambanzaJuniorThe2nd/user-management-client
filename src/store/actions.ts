@@ -31,12 +31,14 @@ const actions = wrapActions({
       email,
       title,
       birthdate,
+      isAdmin
     }: {
       _id: string;
       name: string;
       email: string;
       title: string;
       birthdate: string;
+      isAdmin: boolean;
     }
   ) {
     const updatedUser = await Users.updateUser(_id, {
@@ -44,6 +46,7 @@ const actions = wrapActions({
       email,
       title,
       birthdate,
+      isAdmin
     });
     if (updatedUser) {
       commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully updated" });
@@ -62,11 +65,13 @@ const actions = wrapActions({
       email,
       title,
       birthdate,
+      isAdmin,
     }: {
       name: string;
       email: string;
       title: string;
       birthdate: string;
+      isAdmin: boolean;
     }
   ) {
     const user = await Users.createUser({
@@ -74,6 +79,7 @@ const actions = wrapActions({
       email,
       title,
       birthdate,
+      isAdmin,
     });
     if (user) {
       commit(MutationType.ADD_USER, user);
