@@ -36,7 +36,7 @@ const actions = wrapActions({
       name: string;
       email: string;
       title: string;
-      birthdate: Date;
+      birthdate: string;
     }
   ) {
     const updatedUser = await Users.updateUser(_id, {
@@ -66,7 +66,7 @@ const actions = wrapActions({
       name: string;
       email: string;
       title: string;
-      birthdate: Date;
+      birthdate: string;
     }
   ) {
     const user = await Users.createUser({

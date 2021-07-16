@@ -1,9 +1,9 @@
 <template>
-  <div class="submit-form mt-3 mx-auto">
+  <div class="submit-form mt-10 mx-auto">
     <p class="headline">Add User</p>
 
     <div v-if="!submitted">
-      <v-form ref="form" lazy-validation>
+      <v-form ref="form" class="mb-4" lazy-validation style="body: 1px solid #000">
         <v-text-field
           v-model="user.name"
           :rules="nameRules"
@@ -67,6 +67,12 @@
             </v-date-picker>
           </v-dialog>
         </v-col>
+        <v-select
+          :items="userRoles"
+          v-model="user.role"
+          label="Role"
+        >
+        </v-select>
       </v-form>
 
       <v-btn color="primary" class="mr-4" @click="addUser">Add</v-btn>
@@ -92,7 +98,9 @@ export default {
         birthdate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10),
+        role: "Regular",
       },
+      userRoles: ["Admin", "Regular"],
       submitted: false,
       valid: true,
       modal: false,
@@ -124,6 +132,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset();
+      this.user.role = "Regular";
     },
     async addUser() {
       if (this.isValidForm()) {
@@ -131,7 +140,8 @@ export default {
           name: this.user.name,
           email: this.user.email,
           title: this.user.title,
-          birthdate: new Date(this.user.birthdate)
+          birthdate: this.user.birthdate,
+          isAdmin: this.user.role === "Admin"
         });
       }
     },

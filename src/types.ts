@@ -32,7 +32,7 @@ export interface UserCreateArgs {
   name: string;
   email: string;
   title: string;
-  birthdate: Date;
+  birthdate: string;
 }
 
 export interface UserLoginArgs {

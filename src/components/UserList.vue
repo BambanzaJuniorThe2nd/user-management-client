@@ -1,5 +1,5 @@
 <template>
-  <v-row align="center" class="py-4 px-3 mx-auto">
+  <v-row align="center" class="pt-10 px-3 mx-auto">
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title>Users</v-card-title>
