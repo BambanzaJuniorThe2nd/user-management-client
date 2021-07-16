@@ -1,8 +1,8 @@
 <template>
-  <div class="submit-form mt-10 mx-auto">
-    <p class="headline">Add User</p>
+  <div class="submit-form mt-10 mx-auto" style="max-width: 400px">
+    <p class="headline text-center">Add User</p>
 
-    <div v-if="!submitted">
+    <div class="mx-auto" style="max-width: 400px">
       <v-form ref="form" class="mb-4" lazy-validation style="body: 1px solid #000">
         <v-text-field
           v-model="user.name"
@@ -71,12 +71,15 @@
           :items="userRoles"
           v-model="user.role"
           label="Role"
+          :rules="roleRules"
         >
         </v-select>
       </v-form>
 
-      <v-btn color="primary" class="mr-4" @click="addUser">Add</v-btn>
-      <v-btn @click="reset">Clear</v-btn>
+      <div class="d-flex justify-space-between mb-5">
+        <v-btn color="primary" class="mr-4" @click="addUser">Add</v-btn>
+        <v-btn @click="reset">Clear</v-btn>
+      </div>
     </div>
   </div>
 </template>
@@ -91,7 +94,6 @@ export default {
   data() {
     return {
       user: {
-        id: null,
         name: "",
         email: "",
         title: "",
@@ -116,7 +118,8 @@ export default {
         (v) => !!v || "Title is required",
         (v) => (v && v.length >= 1) || "Title must be at least 1 character",
       ],
-      birthdateRules: [(v) => !!v || "Birthdate is required"]
+      birthdateRules: [(v) => !!v || "Birthdate is required"],
+      roleRules: [(v) => !!v || "Role is required"],
     };
   },
   computed: {
@@ -143,6 +146,8 @@ export default {
           birthdate: this.user.birthdate,
           isAdmin: this.user.role === "Admin"
         });
+
+        this.submitted = true;
       }
     },
   },
@@ -159,6 +164,7 @@ export default {
     users() {
       // Reset form
       this.reset();
+      this.submitted = false;
     }
   }
 };

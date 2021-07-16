@@ -23,6 +23,31 @@ const actions = wrapActions({
       commit(MutationType.SET_OTHER_USER, otherUser);
     }
   },
+  async updateCurrentUser(
+    {commit, dispatch }, 
+    { _id, name, email, title, birthdate, password, isAdmin 
+    }: {
+      _id: string;
+      name: string;
+      email: string;
+      title: string;
+      birthdate: string;
+      password: string;
+      isAdmin: boolean;
+    }) {
+      const updatedUser = await Users.updateCurrentUser(_id, {
+        name,
+        email,
+        title,
+        birthdate,
+        password,
+        isAdmin
+      });
+      if (updatedUser) {
+        commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully updated" });
+        dispatch("getCurrentUser")
+      }
+  },
   async updateOtherUser(
     { commit, dispatch },
     {

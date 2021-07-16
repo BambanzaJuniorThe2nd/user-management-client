@@ -41,6 +41,10 @@ export interface UserLoginArgs {
   password: string;
 }
 
+export interface CurrentUserPutArgs extends UserPutArgs {
+  password: string;
+}
+
 export type UserPutArgs = UserCreateArgs;
 
 export interface AppMessage {

@@ -1,8 +1,8 @@
 <template>
-  <div class="submit-form mt-3 mx-auto">
-    <p class="headline">Delete User</p>
+  <div class="submit-form mt-3 mx-auto" style="max-width: 400px">
+    <p class="headline text-center">Delete User</p>
 
-    <div v-if="!submitted">
+    <div class="mx-auto" style="max-width: 400px">
       <v-form ref="form" lazy-validation>
         <v-text-field
           v-model="user.name"
@@ -85,13 +85,13 @@ export default {
     async deleteUser() {
         this.hideDialog();
         await this.deleteOtherUser(this.$route.params.id);
+        this.submitted = true;
     }
   },
   async mounted() {
     if (Auth.isAuthenticated()) {
       if (!this.user)
         await this.getCurrentUser();
-      await this.refreshData();
       await this.getOtherUser(this.$route.params.id);
     }
     else {
@@ -103,7 +103,10 @@ export default {
         this.reset();
     },
     users() {
-        this.$router.push({ name: "home" });
+        if (this.submitted) {
+          this.$router.push({ name: "home" });
+          this.submitted = false;
+        }
     }
   }
 };

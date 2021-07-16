@@ -10,6 +10,11 @@ const getters: GetterTree<AppState, AppState> = {
     if (otherUser) {
       return formatDateFieldsInUserObject(otherUser);
     }
+  },
+  currentUserDataFormatted: ({ user }) => {
+    if (user) {
+      return formatDateFieldsInUserObject(user);
+    }
   }
 };
 
