@@ -1,9 +1,5 @@
 <template>
-  <v-row align="center" class="list px-3 mx-auto">
-    <v-col cols="12" md="4">
-      <v-btn small> Search </v-btn>
-    </v-col>
-
+  <v-row align="center" class="py-4 px-3 mx-auto">
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title>Users</v-card-title>
@@ -42,11 +38,11 @@ export default {
     return {
       title: "",
       headers: [
-        { text: "ID", align: "start", sortable: true, value: "_id" },
         { text: "Name", align: "start", sortable: true, value: "name" },
         { text: "Email", value: "email", sortable: true },
         { text: "Title", value: "title", sortable: true },
         { text: "Birthdate", value: "birthdate", sortable: true },
+        { text: "Role", value: "isAdmin", sortable: true },
         { text: "Created At", value: "createdAt", sortable: true },
         { text: "Updated At", value: "updatedAt", sortable: true },
         { text: "Actions", value: "actions", sortable: false },

@@ -7,10 +7,10 @@ export const formatDateFieldsInUserObject = (user: User) => {
         isAdmin: user.isAdmin ? "Admin" : "Regular",
         birthdate: moment(user.birthdate).format("YYYY-MM-DD"),
         createdAt: moment(user.createdAt).format(
-          "YYYY-MM-DD [at] HH:mm A"
+          "YYYY-MM-DD HH:mm A"
         ),
         updatedAt: moment(user.updatedAt).format(
-          "YYYY-MM-DD [at] HH:mm A"
+          "YYYY-MM-DD HH:mm A"
         ),
     }
 }
