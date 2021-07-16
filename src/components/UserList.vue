@@ -17,12 +17,6 @@
             <v-icon small @click="deleteUser(item._id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
-
-        <v-card-actions v-if="users.length">
-          <v-btn small color="error" @click="removeAllUsers">
-            Remove All
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-col>
   </v-row>
@@ -57,10 +51,6 @@ export default {
     ...mapActions(["getAllUsers", "refreshData", "getCurrentUser"]),
     async refreshList() {
       await this.getAllUsers();
-    },
-
-    removeAllUsers() {
-      console.log("removeAllUsers clicked with ");
     },
 
     editUser(id) {
