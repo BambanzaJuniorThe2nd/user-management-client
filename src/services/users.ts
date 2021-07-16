@@ -20,23 +20,23 @@ export const Users = {
   async login(args: UserLoginArgs) {
     const res = await axios.post<LoginResult>(`/users/login`, args);
     Auth.setAccessToken(res.data.token);
-    return res.data.user;
+    return res.data;
   },
   async getAllUsers() {
     const res = await axios.get<GetAllUsersResult>("/users/all");
-    return res.data.users;
+    return res.data;
   },
   async getCurrentUser() {
     const res = await axios.get<GetCurrentUserResult>("/users/me");
-    return res.data.user;
+    return res.data;
   },
   async getUser(userId: string) {
     const res = await axios.get<GetUserResult>(`/users/${userId}`);
-    return res.data.user;
+    return res.data;
   },
   async updateUser(userId: string, args: UserPutArgs) {
     const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);
-    return res.data.user;
+    return res.data;
   },
   async deleteUser(userId: string) {
     await axios.delete(`/users/${userId}`);

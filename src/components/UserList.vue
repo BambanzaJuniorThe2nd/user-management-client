@@ -1,9 +1,5 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
-    <v-col cols="12" md="8">
-      <v-text-field v-model="title" label="Search by Name"></v-text-field>
-    </v-col>
-
     <v-col cols="12" md="4">
       <v-btn small> Search </v-btn>
     </v-col>
@@ -13,6 +9,7 @@
         <v-card-title>Users</v-card-title>
 
         <v-data-table
+          v-show="users && users.length"
           :headers="headers"
           :items="usersDataFormatted"
           disable-pagination
@@ -26,7 +23,7 @@
           </template>
         </v-data-table>
 
-        <v-card-actions v-if="users.length > 0">
+        <v-card-actions v-if="users && users.length">
           <v-btn small color="error" @click="removeAllUsers">
             Remove All
           </v-btn>
@@ -58,12 +55,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(["users"]),
+    ...mapState(['users']),
     ...mapGetters(["usersDataFormatted"]),
   },
   methods: {
     ...mapActions(["getAllUsers", "refreshData", "getCurrentUser"]),
-
     async refreshList() {
       await this.getAllUsers();
     },
@@ -82,7 +78,6 @@ export default {
   },
   async mounted() {
     if (Auth.isAuthenticated()) {
-      console.log("Is authenticated...");
       if (!this.user)
         await this.getCurrentUser();
       await this.refreshData();

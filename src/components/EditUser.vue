@@ -118,7 +118,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getOtherUser", "updateOtherUser", "getCurrentUser"]),
+    ...mapActions(["getOtherUser", "updateOtherUser", "getCurrentUser", "refreshData"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
