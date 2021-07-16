@@ -4,6 +4,7 @@ export interface User {
   email: string;
   title: string;
   birthdate: Date;
+  isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
