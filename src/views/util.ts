@@ -28,4 +28,8 @@ export const validationRules = {
   ],
   birthdate: [(birthdate: string) => !!birthdate || "Birthdate is required"],
   role: [(role: string) => !!role || "Role is required"],
+  password: [
+    (password: string) => !!password || "Password is required",
+    (password: string) => (password && password.length >= 8) || "Min 8 characters"
+  ],
 }

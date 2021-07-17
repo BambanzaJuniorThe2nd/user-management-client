@@ -7,7 +7,7 @@
             <v-text-field
             v-model="details.password"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="passwordRules"
+            :rules="validationRules.password"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-2"
             label="Password"
@@ -39,6 +39,8 @@
 import { mapActions, mapGetters, mapState } from "vuex";
 import { Auth } from '../services';
 import { DEFAULT_SIGNED_OUT_PAGE, DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
+import { validationRules } from "./util";
+
 export default {
   name: "change-password",
   data() {
@@ -49,10 +51,7 @@ export default {
       },
       submitted: false,
       valid: true,
-      passwordRules: [
-        (v) => !!v || "Password is required",
-        (v) => (v && v.length >= 8) || "Min 8 characters"
-      ],
+      validationRules,
       confirmedPasswordRules: [
         (v) => !!v || "Confirmed password is required",
         (v) => (v && v.length >= 8) || "Min 8 characters",

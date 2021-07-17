@@ -6,7 +6,7 @@
       <v-form ref="form" lazy-validation>
         <v-text-field
           v-model="creds.email"
-          :rules="emailRules"
+          :rules="validationRules.email"
           label="E-mail"
           required
         ></v-text-field>
@@ -14,7 +14,7 @@
         <v-text-field
             v-model="creds.password"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="passwordRules"
+            :rules="validationRules.password"
             :type="showPassword ? 'text' : 'password'"
             name="input-10-2"
             label="Password"
@@ -32,6 +32,7 @@
 import { mapActions, mapState } from "vuex";
 import { Auth } from '../services';
 import { DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
+import { validationRules } from "./util"
 
 export default {
   name: "login",
@@ -41,14 +42,7 @@ export default {
             email: "",
             password: "",
         },
-        emailRules: [
-            (v) => !!v || "E-mail is required",
-            (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-        ],
-        passwordRules: [
-            (v) => !!v || "Password is required",
-            (v) => (v && v.length >= 8) || "Min 8 characters",
-        ],
+        validationRules,
         showPassword: false,
     };
   },
