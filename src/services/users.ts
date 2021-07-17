@@ -4,12 +4,12 @@ import {
   UserCreateArgs,
   UserLoginArgs,
   UserPutArgs,
-  CurrentUserPutArgs,
   CreateUserResult,
   GetCurrentUserResult,
   GetAllUsersResult,
   GetUserResult,
   UpdateUserResult,
+  ChangePasswordArgs
 } from "../types";
 import { Auth } from "@/services";
 
@@ -36,12 +36,12 @@ export const Users = {
     return res.data;
   },
   async resetPassword(userId: string) {
-    const res = await axios.put(`/users/password/reset/${userId}`);
-    return res.data;
+    await axios.put(`/users/password/reset/${userId}`);
+    return;
   },
-  async updateCurrentUser(userId: string, args: CurrentUserPutArgs) {
-    const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);
-    return res.data;
+  async changePassword(userId: string, args: ChangePasswordArgs) {
+    await axios.put(`/users/password/change/${userId}`, args);
+    return;
   },
   async updateUser(userId: string, args: UserPutArgs) {
     const res = await axios.put<UpdateUserResult>(`/users/${userId}`, args);

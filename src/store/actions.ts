@@ -23,35 +23,15 @@ const actions = wrapActions({
       commit(MutationType.SET_OTHER_USER, otherUser);
     }
   },
+  async changePassword({ commit, state }, { _id, password }: { _id: string, password: string }) {
+    await Users.changePassword(_id, { password });
+    commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully changed" });
+    commit(MutationType.SET_USER, { ...state.user });
+  },
   async resetUserPassword({commit, dispatch}, userId:string) {
     await Users.resetPassword(userId);
     commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully reset" });
     dispatch("getAllUsers");
-  },
-  async updateCurrentUser(
-    {commit, dispatch }, 
-    { _id, name, email, title, birthdate, password, isAdmin 
-    }: {
-      _id: string;
-      name: string;
-      email: string;
-      title: string;
-      birthdate: string;
-      password: string;
-      isAdmin: boolean;
-    }) {
-      const updatedUser = await Users.updateCurrentUser(_id, {
-        name,
-        email,
-        title,
-        birthdate,
-        password,
-        isAdmin
-      });
-      if (updatedUser) {
-        commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully updated" });
-        dispatch("getCurrentUser")
-      }
   },
   async updateOtherUser(
     { commit, dispatch },

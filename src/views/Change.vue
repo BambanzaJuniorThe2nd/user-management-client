@@ -51,8 +51,7 @@ export default {
       valid: true,
       passwordRules: [
         (v) => !!v || "Password is required",
-        (v) => (v && v.length >= 8) || "Min 8 characters",
-        (v) => (v && v === this.details.confirmedPassword) || "Must be the same as confirmed password",
+        (v) => (v && v.length >= 8) || "Min 8 characters"
       ],
       confirmedPasswordRules: [
         (v) => !!v || "Confirmed password is required",
@@ -72,12 +71,13 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["updateCurrentUser", "getCurrentUser", "refreshData"]),
+    ...mapActions(["changePassword", "getCurrentUser", "refreshData"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
     reset() {
         this.details = { password: "", confirmedPassword: "" }
+        this.submitted = false;
     },
     resetValidation() {
       this.$refs.form.resetValidation();
@@ -85,17 +85,11 @@ export default {
     },
     async save() {
       if (this.isValidForm() && this.details.password === this.details.confirmedPassword) {
-        await this.updateCurrentUser({
-            _id: this.currentUserDataFormatted._id,
-            name: this.currentUserDataFormatted.name,
-            email: this.currentUserDataFormatted.email,
-            title: this.currentUserDataFormatted.title,
-            birthdate: this.currentUserDataFormatted.birthdate,
-            password: this.details.password,
-            isAdmin: this.currentUserDataFormatted.isAdmin
-        });
-
         this.submitted = true;
+        await this.changePassword({
+          _id: this.user._id,
+          password: this.details.password
+        });
       }
     },
   },
@@ -113,7 +107,7 @@ export default {
     user() {
         if (this.submitted) {
           this.$router.push({ name: DEFAULT_SIGNED_IN_PAGE });
-          this.submitted = false;
+          this.reset();
         } 
     }
   }

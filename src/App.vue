@@ -9,7 +9,9 @@
           <v-btn to="/users/add" text> Add </v-btn>
         </div>
 
-        <v-btn v-if="user" text @click="logout"> Logout </v-btn>
+        <div v-if="user">
+          <v-btn text @click="logout"> Logout </v-btn>
+        </div>
       </div>
     </v-app-bar>
 

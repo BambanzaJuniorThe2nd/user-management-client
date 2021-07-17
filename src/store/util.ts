@@ -25,12 +25,9 @@ export function handleActionError(
   { commit, dispatch }: ActionContext<AppState, AppState>
 ) {
   if (error.response && error.response.status === 401) {
-    const data = error.response.data;
-    if (data && /Invalid access token/.test(data.message)) {
-      dispatch("clearData");
-      Auth.deleteAccessToken();
-      router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
-    }
+    dispatch("clearData");
+    Auth.deleteAccessToken();
+    router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
   }
   setErrorMessage(error, commit);
 }
