@@ -87,8 +87,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import { Auth } from '../services';
-import { DEFAULT_SIGNED_OUT_PAGE, DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
+import { DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
 import { validationRules } from "../views/util";
 export default {
   name: "edit-user",
@@ -118,7 +117,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getOtherUser", "updateOtherUser", "getCurrentUser", "refreshData", "resetUserPassword"]),
+    ...mapActions(["getOtherUser", "updateOtherUser", "resetUserPassword"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -152,15 +151,7 @@ export default {
     }
   },
   async mounted() {
-    if (Auth.isAuthenticated()) {
-      if (!this.user)
-        await this.getCurrentUser();
-      await this.refreshData();
-      await this.getOtherUser(this.$route.params.id);
-    }
-    else {
-      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
-    }
+    await this.getOtherUser(this.$route.params.id);
   },
   watch: {
     otherUser() {

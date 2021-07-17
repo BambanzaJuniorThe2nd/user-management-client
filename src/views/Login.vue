@@ -30,20 +30,18 @@
 </template>
 <script>
 import { mapActions, mapState } from "vuex";
-import { Auth } from '../services';
-import { DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
 import { validationRules } from "./util"
 
 export default {
   name: "login",
   data() {
     return {
-        creds: {
-            email: "",
-            password: "",
-        },
-        validationRules,
-        showPassword: false,
+      creds: {
+          email: "",
+          password: "",
+      },
+      validationRules,
+      showPassword: false,
     };
   },
   computed: {
@@ -64,11 +62,6 @@ export default {
             await this.logUserIn({ email: this.creds.email, password: this.creds.password });
         }
     },
-  },
-  async mounted() {
-    if (Auth.isAuthenticated()) {
-      this.$router.push({ name: DEFAULT_SIGNED_IN_PAGE });
-    }
   },
 };
 </script>

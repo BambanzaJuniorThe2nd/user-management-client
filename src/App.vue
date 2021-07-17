@@ -71,7 +71,7 @@ export default Vue.extend({
       if (!this.user)
         await this.getCurrentUser();
     }
-    else {
+    else if(this.$route.name !== DEFAULT_SIGNED_OUT_PAGE) {
       this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
     }
   },

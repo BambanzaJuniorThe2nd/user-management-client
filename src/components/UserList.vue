@@ -11,10 +11,10 @@
           :hide-default-footer="true"
         >
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editUser(item._id)"
+            <v-icon small class="mr-5" @click="editUser(item._id)"
               >mdi-pencil</v-icon
             >
-            <v-icon small @click="deleteUser(item._id)">mdi-delete</v-icon>
+            <v-icon v-if="user && item._id !== user._id" small @click="deleteUser(item._id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
       </v-card>
@@ -24,8 +24,6 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import { Auth } from '../services';
-import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
 export default {
   name: "users-list",
   data() {
@@ -44,15 +42,21 @@ export default {
     };
   },
   computed: {
-    ...mapState(['users']),
+    ...mapState(['users', "user"]),
     ...mapGetters(["usersDataFormatted"]),
+    isDataLoaded() {
+      return this.user;
+    }
   },
   methods: {
-    ...mapActions(["getAllUsers", "refreshData", "getCurrentUser"]),
+    ...mapActions(["refreshData"]),
     async refreshList() {
       await this.getAllUsers();
     },
-
+    hideDeleteIcon(itemId) {
+      if (!this.user) return false;
+      return itemId !== this.user._id;
+    },
     editUser(id) {
       this.$router.push({ name: "edit", params: { id } });
     },
@@ -62,15 +66,16 @@ export default {
     },
   },
   async mounted() {
-    if (Auth.isAuthenticated()) {
-      if (!this.user)
-        await this.getCurrentUser();
-      await this.refreshData();
-    }
-    else {
-      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
-    }
+    await this.refreshData();
   },
+  watch: {
+    user() {
+      if (this.user) {
+        this.user
+        console.log("user was set...");
+      }
+    }
+  }
 };
 </script>
 
