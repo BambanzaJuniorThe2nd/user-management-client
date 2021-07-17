@@ -6,21 +6,21 @@
       <v-form ref="form" class="mb-6" lazy-validation>
         <v-text-field
           v-model="details.name"
-          :rules="nameRules"
+          :rules="validationRules.name"
           label="Name"
           required
         ></v-text-field>
 
         <v-text-field
           v-model="details.email"
-          :rules="emailRules"
+          :rules="validationRules.email"
           label="E-mail"
           required
         ></v-text-field>
 
         <v-text-field
           v-model="details.title"
-          :rules="titleRules"
+          :rules="validationRules.title"
           label="Title"
           required
         ></v-text-field>
@@ -41,7 +41,7 @@
                 readonly
                 v-bind="attrs"
                 v-on="on"
-                :rules="birthdateRules"
+                :rules="validationRules.birthdate"
               ></v-text-field>
             </template>
             <v-date-picker
@@ -89,6 +89,7 @@
 import { mapActions, mapGetters, mapState } from "vuex";
 import { Auth } from '../services';
 import { DEFAULT_SIGNED_OUT_PAGE, DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
+import { validationRules } from "../views/util";
 export default {
   name: "edit-user",
   data() {
@@ -106,19 +107,7 @@ export default {
       submitted: false,
       valid: true,
       modal: false,
-      nameRules: [
-        (v) => !!v || "Name is required",
-        (v) => (v && v.length >= 1) || "Name must be at least 1 character",
-      ],
-      emailRules: [
-        (v) => !!v || "E-mail is required",
-        (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-      ],
-      titleRules: [
-        (v) => !!v || "Title is required",
-        (v) => (v && v.length >= 1) || "Title must be at least 1 character",
-      ],
-      birthdateRules: [(v) => !!v || "Birthdate is required"],
+      validationRules,
     };
   },
   computed: {
