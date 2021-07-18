@@ -12,6 +12,7 @@ services:
       - usr-mgt-net
     volumes:
       - mongo-data:/data/db
+      - '/app/node_modules'
 networks:
   usr-mgt-net:
     driver: bridge
