@@ -1,0 +1,20 @@
+version: "3"
+services:
+  my-app:
+    container_name: usr_mgt_ui
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    networks:
+      - usr-mgt-net
+    volumes:
+      - mongo-data:/data/db
+networks:
+  usr-mgt-net:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
