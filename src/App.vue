@@ -50,7 +50,10 @@
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 import { Auth } from "./services";
-import { DEFAULT_SIGNED_OUT_PAGE, DEFAULT_SIGNED_IN_PAGE } from "./router/defaults";
+import {
+  DEFAULT_SIGNED_OUT_PAGE,
+  DEFAULT_SIGNED_IN_PAGE,
+} from "./router/defaults";
 
 export default Vue.extend({
   name: "App",
@@ -73,7 +76,8 @@ export default Vue.extend({
   async mounted() {
     if (Auth.isAuthenticated()) {
       if (!this.user) await this.getCurrentUser();
-      if (this.$route.name === DEFAULT_SIGNED_OUT_PAGE) this.$router.push({ name: DEFAULT_SIGNED_IN_PAGE });
+      if (this.$route.name === DEFAULT_SIGNED_OUT_PAGE)
+        this.$router.push({ name: DEFAULT_SIGNED_IN_PAGE });
     } else if (this.$route.name !== DEFAULT_SIGNED_OUT_PAGE) {
       this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
     }
