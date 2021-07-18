@@ -11,11 +11,5 @@ services:
     networks:
       - usr-mgt-net
     volumes:
-      - mongo-data:/data/db
+      - '.:/app'
       - '/app/node_modules'
-networks:
-  usr-mgt-net:
-    driver: bridge
-volumes:
-  mongo-data:
-    driver: local
