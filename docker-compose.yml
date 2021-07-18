@@ -8,6 +8,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8080:8080'
+    networks:
+      - usr-mgt-net
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
+      - mongo-data:/data/db
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+networks:
+  usr-mgt-net:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local

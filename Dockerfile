@@ -1,16 +1,21 @@
-# base image
-FROM node:alpine
+# build stage
+FROM node:lts-alpine as build-stage
 
-# set working directory
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+COPY package*.json ./
 
-# install and cache app dependencies
-COPY package.json /app/package.json
 RUN yarn install
-RUN yarn global add @vue/cli
 
-# start app
-CMD ["yarn", "run", "serve"]
+COPY . .
+
+RUN yarn build
+
+# production stage
+FROM nginx:stable-alpine as production-stage
+
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
