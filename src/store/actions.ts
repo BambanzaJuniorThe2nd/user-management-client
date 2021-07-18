@@ -139,7 +139,7 @@ const actions = wrapActions({
     if (user) commit(MutationType.SET_USER, user);
   },
   async refreshData({ dispatch }) {
-    ["getAllUsers"].forEach((action) => dispatch(action));
+    ["getCurrentUser", "getAllUsers"].forEach((action) => dispatch(action));
   },
   async resetMessage({ commit }) {
     commit(MutationType.UNSET_MESSAGE);

@@ -120,7 +120,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getOtherUser", "updateOtherUser", "resetUserPassword"]),
+    ...mapActions(["getOtherUser", "updateOtherUser", "resetUserPassword", "refreshData"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -156,6 +156,7 @@ export default {
     },
   },
   async mounted() {
+    await this.refreshData();
     await this.getOtherUser(this.$route.params.id);
   },
   watch: {

@@ -15,7 +15,7 @@
               >mdi-pencil</v-icon
             >
             <v-icon
-              v-if="user && item._id !== user._id"
+              v-show="item._id !== user._id"
               small
               @click="deleteUser(item._id)"
               >mdi-delete</v-icon
@@ -47,7 +47,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["users", "user"]),
+    ...mapState(["user", "users"]),
     ...mapGetters(["usersDataFormatted"]),
     isDataLoaded() {
       return this.user;
@@ -57,10 +57,6 @@ export default {
     ...mapActions(["refreshData"]),
     async refreshList() {
       await this.getAllUsers();
-    },
-    hideDeleteIcon(itemId) {
-      if (!this.user) return false;
-      return itemId !== this.user._id;
     },
     editUser(id) {
       this.$router.push({ name: "edit", params: { id } });
@@ -72,14 +68,6 @@ export default {
   },
   async mounted() {
     await this.refreshData();
-  },
-  watch: {
-    user() {
-      if (this.user) {
-        this.user;
-        console.log("user was set...");
-      }
-    },
   },
 };
 </script>

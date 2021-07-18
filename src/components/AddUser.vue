@@ -122,7 +122,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setMessage", "createUser", "getCurrentUser"]),
+    ...mapActions(["setMessage", "createUser"]),
     isValidForm() {
       return this.$refs.form.validate();
     },
@@ -143,13 +143,6 @@ export default {
         this.submitted = true;
       }
     },
-  },
-  async mounted() {
-    if (Auth.isAuthenticated()) {
-      if (!this.user) await this.getCurrentUser();
-    } else {
-      this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
-    }
   },
   watch: {
     users() {
