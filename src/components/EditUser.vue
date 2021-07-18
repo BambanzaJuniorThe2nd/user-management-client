@@ -120,7 +120,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getOtherUser", "updateOtherUser", "resetUserPassword", "refreshData"]),
+    ...mapActions([
+      "getOtherUser",
+      "updateOtherUser",
+      "resetUserPassword",
+      "refreshData",
+    ]),
     isValidForm() {
       return this.$refs.form.validate();
     },

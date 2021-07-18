@@ -91,8 +91,6 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { Auth } from "../services";
-import { DEFAULT_SIGNED_OUT_PAGE } from "../router/defaults";
 import { validationRules } from "../views/util";
 
 export default {
