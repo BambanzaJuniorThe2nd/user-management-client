@@ -15,7 +15,7 @@ const getters: GetterTree<AppState, AppState> = {
     if (user) {
       return formatDateFieldsInUserObject(user);
     }
-  }
+  },
 };
 
 export default getters;

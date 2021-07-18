@@ -3,7 +3,12 @@
     <p class="headline text-center">Add User</p>
 
     <div class="mx-auto" style="max-width: 400px">
-      <v-form ref="form" class="mb-4" lazy-validation style="body: 1px solid #000">
+      <v-form
+        ref="form"
+        class="mb-4"
+        lazy-validation
+        style="body: 1px solid #000"
+      >
         <v-text-field
           v-model="user.name"
           :rules="validationRules.name"
@@ -86,9 +91,9 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
-import { Auth } from '../services';
-import { DEFAULT_SIGNED_OUT_PAGE } from '../router/defaults';
-import { validationRules } from '../views/util';
+import { Auth } from "../services";
+import { DEFAULT_SIGNED_OUT_PAGE } from "../router/defaults";
+import { validationRules } from "../views/util";
 
 export default {
   name: "add-user",
@@ -107,11 +112,11 @@ export default {
       submitted: false,
       valid: true,
       modal: false,
-      validationRules
+      validationRules,
     };
   },
   computed: {
-    ...mapState(['users']),
+    ...mapState(["users"]),
     isValid() {
       return this.$refs.form.validate();
     },
@@ -132,7 +137,7 @@ export default {
           email: this.user.email,
           title: this.user.title,
           birthdate: this.user.birthdate,
-          isAdmin: this.user.role === "Admin"
+          isAdmin: this.user.role === "Admin",
         });
 
         this.submitted = true;
@@ -141,10 +146,8 @@ export default {
   },
   async mounted() {
     if (Auth.isAuthenticated()) {
-      if (!this.user)
-        await this.getCurrentUser();
-    }
-    else {
+      if (!this.user) await this.getCurrentUser();
+    } else {
       this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
     }
   },
@@ -153,8 +156,8 @@ export default {
       // Reset form
       this.reset();
       this.submitted = false;
-    }
-  }
+    },
+  },
 };
 </script>
 

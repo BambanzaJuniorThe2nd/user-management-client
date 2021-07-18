@@ -1,21 +1,14 @@
 # build stage
-FROM node:lts-alpine as build-stage
+FROM node:lts-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN yarn install
-
 COPY . .
 
-RUN yarn build
-
-# production stage
-FROM nginx:stable-alpine as production-stage
-
-COPY --from=build-stage /app/dist /usr/share/nginx/html
+RUN yarn install
 
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["yarn", "run", "serve"]

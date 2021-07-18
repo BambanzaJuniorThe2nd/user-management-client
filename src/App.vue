@@ -4,7 +4,11 @@
       <div class="d-flex justify-space-between" style="width: 100%">
         <div class="d-flex align-center mr-2">User Management System</div>
 
-        <div v-if="showNavbarFunctionality" class="d-flex justify-space-between" style="width: 15%">
+        <div
+          v-if="showNavbarFunctionality"
+          class="d-flex justify-space-between"
+          style="width: 15%"
+        >
           <v-btn to="/" text> Users </v-btn>
           <v-btn to="/users/add" text> Add </v-btn>
         </div>
@@ -45,8 +49,8 @@
 <script lang="ts">
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
-import { Auth } from './services';
-import { DEFAULT_SIGNED_OUT_PAGE, DEFAULT_SIGNED_IN_PAGE } from './router/defaults';
+import { Auth } from "./services";
+import { DEFAULT_SIGNED_OUT_PAGE } from "./router/defaults";
 
 export default Vue.extend({
   name: "App",
@@ -64,14 +68,12 @@ export default Vue.extend({
     ...mapActions(["logUserOut", "getCurrentUser"]),
     async logout() {
       await this.logUserOut();
-    }
+    },
   },
   async mounted() {
     if (Auth.isAuthenticated()) {
-      if (!this.user)
-        await this.getCurrentUser();
-    }
-    else if(this.$route.name !== DEFAULT_SIGNED_OUT_PAGE) {
+      if (!this.user) await this.getCurrentUser();
+    } else if (this.$route.name !== DEFAULT_SIGNED_OUT_PAGE) {
       this.$router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
     }
   },
@@ -95,7 +97,7 @@ export default Vue.extend({
     user() {
       if (this.user) this.showNavbarFunctionality = true;
       else this.showNavbarFunctionality = false;
-    }
+    },
   },
 });
 </script>

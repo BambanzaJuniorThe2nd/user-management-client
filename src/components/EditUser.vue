@@ -67,19 +67,22 @@
             </v-date-picker>
           </v-dialog>
         </v-col>
-        <v-select
-          :items="userRoles"
-          v-model="details.role"
-          label="Role"
-        >
+        <v-select :items="userRoles" v-model="details.role" label="Role">
         </v-select>
       </v-form>
 
       <div class="d-flex justify-space-between mb-5">
         <v-btn color="primary" @click="updateUser">Save</v-btn>
         <v-btn @click="reset">Reset</v-btn>
-        <v-btn v-if="(user && otherUser) && user._id === otherUser._id" color="yellow" @click="changePassword">Change Password</v-btn>
-        <v-btn v-else color="yellow" @click="resetPassword">Reset Password</v-btn>
+        <v-btn
+          v-if="user && otherUser && user._id === otherUser._id"
+          color="yellow"
+          @click="changePassword"
+          >Change Password</v-btn
+        >
+        <v-btn v-else color="yellow" @click="resetPassword"
+          >Reset Password</v-btn
+        >
       </div>
     </div>
   </div>
@@ -87,7 +90,7 @@
 
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import { DEFAULT_SIGNED_IN_PAGE } from '../router/defaults';
+import { DEFAULT_SIGNED_IN_PAGE } from "../router/defaults";
 import { validationRules } from "../views/util";
 export default {
   name: "edit-user",
@@ -110,8 +113,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(['user', 'otherUser', 'users', ]),
-    ...mapGetters(['userDataFormatted']),
+    ...mapState(["user", "otherUser", "users"]),
+    ...mapGetters(["userDataFormatted"]),
     isValid() {
       return this.$refs.form.validate();
     },
@@ -122,21 +125,23 @@ export default {
       return this.$refs.form.validate();
     },
     reset() {
-        this.details = { ...this.userDataFormatted, role: this.userDataFormatted.isAdmin }
+      this.details = {
+        ...this.userDataFormatted,
+        role: this.userDataFormatted.isAdmin,
+      };
     },
     resetValidation() {
       this.$refs.form.resetValidation();
-      
     },
     async updateUser() {
       if (this.isValidForm()) {
         await this.updateOtherUser({
-            _id: this.$route.params.id,
-            name: this.details.name,
-            email: this.details.email,
-            title: this.details.title,
-            birthdate: this.details.birthdate,
-            isAdmin: this.details.role === "Admin"
+          _id: this.$route.params.id,
+          name: this.details.name,
+          email: this.details.email,
+          title: this.details.title,
+          birthdate: this.details.birthdate,
+          isAdmin: this.details.role === "Admin",
         });
 
         this.submitted = true;
@@ -148,21 +153,21 @@ export default {
     async resetPassword() {
       await this.resetUserPassword(this.$route.params.id);
       this.submitted = true;
-    }
+    },
   },
   async mounted() {
     await this.getOtherUser(this.$route.params.id);
   },
   watch: {
     otherUser() {
-        this.reset();
+      this.reset();
     },
     users() {
-        if (this.submitted) {
-          this.$router.push({ name: DEFAULT_SIGNED_IN_PAGE });
-          this.submitted = false;
-        } 
-    }
-  }
+      if (this.submitted) {
+        this.$router.push({ name: DEFAULT_SIGNED_IN_PAGE });
+        this.submitted = false;
+      }
+    },
+  },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="submit-form mx-auto mt-15" style="max-width: 300px">
+  <div class="submit-form mx-auto mt-15" style="max-width: 300px">
     <p class="headline text-center">Login</p>
 
     <div class="mx-auto" style="max-width: 300px">
@@ -12,15 +12,15 @@
         ></v-text-field>
 
         <v-text-field
-            v-model="creds.password"
-            :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="validationRules.password"
-            :type="showPassword ? 'text' : 'password'"
-            name="input-10-2"
-            label="Password"
-            hint="At least 8 characters"
-            class="input-group--focused"
-            @click:append="showPassword = !showPassword"
+          v-model="creds.password"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :rules="validationRules.password"
+          :type="showPassword ? 'text' : 'password'"
+          name="input-10-2"
+          label="Password"
+          hint="At least 8 characters"
+          class="input-group--focused"
+          @click:append="showPassword = !showPassword"
         ></v-text-field>
       </v-form>
 
@@ -29,16 +29,16 @@
   </div>
 </template>
 <script>
-import { mapActions, mapState } from "vuex";
-import { validationRules } from "./util"
+import { mapActions } from "vuex";
+import { validationRules } from "./util";
 
 export default {
   name: "login",
   data() {
     return {
       creds: {
-          email: "",
-          password: "",
+        email: "",
+        password: "",
       },
       validationRules,
       showPassword: false,
@@ -58,9 +58,12 @@ export default {
       this.$refs.form.reset();
     },
     async login() {
-        if (this.isValidForm()) {
-            await this.logUserIn({ email: this.creds.email, password: this.creds.password });
-        }
+      if (this.isValidForm()) {
+        await this.logUserIn({
+          email: this.creds.email,
+          password: this.creds.password,
+        });
+      }
     },
   },
 };

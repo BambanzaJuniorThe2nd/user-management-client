@@ -9,7 +9,7 @@ import {
   GetAllUsersResult,
   GetUserResult,
   UpdateUserResult,
-  ChangePasswordArgs
+  ChangePasswordArgs,
 } from "../types";
 import { Auth } from "@/services";
 

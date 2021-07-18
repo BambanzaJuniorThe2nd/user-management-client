@@ -4,11 +4,7 @@
 
     <div class="mx-auto" style="max-width: 400px">
       <v-form ref="form" lazy-validation>
-        <v-text-field
-          v-model="user.name"
-          label="Name"
-          readonly
-        ></v-text-field>
+        <v-text-field v-model="user.name" label="Name" readonly></v-text-field>
 
         <v-text-field
           v-model="user.email"
@@ -36,18 +32,24 @@
       </v-form>
 
       <v-btn color="error" class="mr-4" @click="proceed">Proceed</v-btn>
-      <Dialog :title="dialogTitle" :text="dialogText" :show="showDialog" @onCancel="hideDialog" @onConfirm="deleteUser" />
+      <Dialog
+        :title="dialogTitle"
+        :text="dialogText"
+        :show="showDialog"
+        @onCancel="hideDialog"
+        @onConfirm="deleteUser"
+      />
     </div>
   </div>
 </template>
 <script>
 import { mapActions, mapGetters, mapState } from "vuex";
-import Dialog from "../ui-components/Dialog.vue"
+import Dialog from "../ui-components/Dialog.vue";
 
 export default {
   name: "delete-user",
   components: {
-      Dialog
+    Dialog,
   },
   data() {
     return {
@@ -68,8 +70,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(['users', 'otherUser']),
-    ...mapGetters(['userDataFormatted']),
+    ...mapState(["users", "otherUser"]),
+    ...mapGetters(["userDataFormatted"]),
   },
   methods: {
     ...mapActions(["getOtherUser", "deleteOtherUser"]),
@@ -77,36 +79,35 @@ export default {
       return this.$refs.form.validate();
     },
     reset() {
-        this.user = { ...this.userDataFormatted }
+      this.user = { ...this.userDataFormatted };
     },
     hideDialog() {
-        this.showDialog = false;
+      this.showDialog = false;
     },
     proceed() {
-        this.showDialog = true;
+      this.showDialog = true;
     },
     async deleteUser() {
-        this.hideDialog();
-        await this.deleteOtherUser(this.$route.params.id);
-        this.submitted = true;
-    }
+      this.hideDialog();
+      await this.deleteOtherUser(this.$route.params.id);
+      this.submitted = true;
+    },
   },
   async mounted() {
     await this.getOtherUser(this.$route.params.id);
   },
   watch: {
     otherUser() {
-        this.reset();
+      this.reset();
     },
     users() {
-        if (this.submitted) {
-          this.$router.push({ name: "home" });
-          this.submitted = false;
-        }
-    }
-  }
+      if (this.submitted) {
+        this.$router.push({ name: "home" });
+        this.submitted = false;
+      }
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

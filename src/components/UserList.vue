@@ -14,7 +14,12 @@
             <v-icon small class="mr-5" @click="editUser(item._id)"
               >mdi-pencil</v-icon
             >
-            <v-icon v-if="user && item._id !== user._id" small @click="deleteUser(item._id)">mdi-delete</v-icon>
+            <v-icon
+              v-if="user && item._id !== user._id"
+              small
+              @click="deleteUser(item._id)"
+              >mdi-delete</v-icon
+            >
           </template>
         </v-data-table>
       </v-card>
@@ -42,11 +47,11 @@ export default {
     };
   },
   computed: {
-    ...mapState(['users', "user"]),
+    ...mapState(["users", "user"]),
     ...mapGetters(["usersDataFormatted"]),
     isDataLoaded() {
       return this.user;
-    }
+    },
   },
   methods: {
     ...mapActions(["refreshData"]),
@@ -71,11 +76,11 @@ export default {
   watch: {
     user() {
       if (this.user) {
-        this.user
+        this.user;
         console.log("user was set...");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

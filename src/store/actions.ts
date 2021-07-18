@@ -17,20 +17,29 @@ const actions = wrapActions({
       message,
     });
   },
-  async getOtherUser({commit}, userId: string) {
+  async getOtherUser({ commit }, userId: string) {
     const otherUser = await Users.getUser(userId);
     if (otherUser) {
       commit(MutationType.SET_OTHER_USER, otherUser);
     }
   },
-  async changePassword({ commit, state }, { _id, password }: { _id: string, password: string }) {
+  async changePassword(
+    { commit, state },
+    { _id, password }: { _id: string; password: string }
+  ) {
     await Users.changePassword(_id, { password });
-    commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully changed" });
+    commit(MutationType.SET_MESSAGE, {
+      type: "success",
+      message: "Password successfully changed",
+    });
     commit(MutationType.SET_USER, { ...state.user });
   },
-  async resetUserPassword({commit, dispatch}, userId:string) {
+  async resetUserPassword({ commit, dispatch }, userId: string) {
     await Users.resetPassword(userId);
-    commit(MutationType.SET_MESSAGE, {type: "success", message: "Password successfully reset" });
+    commit(MutationType.SET_MESSAGE, {
+      type: "success",
+      message: "Password successfully reset",
+    });
     dispatch("getAllUsers");
   },
   async updateOtherUser(
@@ -41,7 +50,7 @@ const actions = wrapActions({
       email,
       title,
       birthdate,
-      isAdmin
+      isAdmin,
     }: {
       _id: string;
       name: string;
@@ -56,20 +65,26 @@ const actions = wrapActions({
       email,
       title,
       birthdate,
-      isAdmin
+      isAdmin,
     });
     if (updatedUser) {
-      commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully updated" });
-      dispatch("getAllUsers")
+      commit(MutationType.SET_MESSAGE, {
+        type: "success",
+        message: "User successfully updated",
+      });
+      dispatch("getAllUsers");
     }
   },
   async deleteOtherUser({ commit, dispatch }, userId: string) {
     await Users.deleteUser(userId);
-    commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully deleted" });
-    dispatch("getAllUsers")
+    commit(MutationType.SET_MESSAGE, {
+      type: "success",
+      message: "User successfully deleted",
+    });
+    dispatch("getAllUsers");
   },
   async createUser(
-    { commit, dispatch },
+    { commit },
     {
       name,
       email,
@@ -93,7 +108,10 @@ const actions = wrapActions({
     });
     if (user) {
       commit(MutationType.ADD_USER, user);
-      commit(MutationType.SET_MESSAGE, {type: "success", message: "User successfully added" });
+      commit(MutationType.SET_MESSAGE, {
+        type: "success",
+        message: "User successfully added",
+      });
     }
   },
   async logUserIn(
@@ -107,7 +125,7 @@ const actions = wrapActions({
         router.push({ name: DEFAULT_SIGNED_IN_PAGE });
     }
   },
-  async logUserOut({ commit, dispatch }) {
+  async logUserOut({ dispatch }) {
     await Users.logout();
     dispatch("clearData");
     router.push({ name: DEFAULT_SIGNED_OUT_PAGE });
